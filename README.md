@@ -4,6 +4,8 @@
 # bis620
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/Inkaa8/bis620/workflows/R-CMD-check/badge.svg)](https://github.com/Inkaa8/bis620/actions)
 <!-- badges: end -->
 
 The goal of bis620 is to …
