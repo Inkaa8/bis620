@@ -9,11 +9,11 @@ wt_mean(x, w)
 \arguments{
 \item{x}{one parameter.}
 
-\item{w}{another parameter.}
+\item{w}{Weighted parameter.}
 }
 \value{
 weighted mean values.
 }
 \description{
-TODO: add this later
+This function
 }
