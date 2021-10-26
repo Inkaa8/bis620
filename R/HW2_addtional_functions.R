@@ -1,10 +1,11 @@
 #' @title Calculate weighted mean
 #'
-#' @description TODO: add this later
+#' @description This function
 #' @param x one parameter.
-#' @param w another parameter.
+#' @param w Weighted parameter.
 #' @return weighted mean values.
 #' @export
 wt_mean <- function(x, w) {
   sum(x * w) / sum(w)
 }
+
