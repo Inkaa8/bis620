@@ -1,12 +1,10 @@
-#' @title Prints the number of missing values in a data frame.
+#' @title Calculate weighted mean
 #'
 #' @description TODO: add this later
-#' @param x an AE data set for a single patient with AESEV.
-#' @return The worst ae for the patient.
+#' @param x one parameter.
+#' @param w another parameter.
+#' @return weighted mean values.
 #' @export
-show_missings <- function(df) {
-  n <- sum(is.na(df))
-  cat("Missing values: ", n, "\n", sep = "")
-
-  invisible(df)
+wt_mean <- function(x, w) {
+  sum(x * w) / sum(w)
 }
