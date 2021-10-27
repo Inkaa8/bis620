@@ -1,0 +1,163 @@
+---
+title: "Homework-1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Description of the study
+## Brief Summary
+The VITamin D and OmegA-3 TriaL (VITAL) is a randomized clinical trial in 25,871 U.S. men and women investigating whether taking daily dietary supplements of vitamin D3 (2000 IU) or omega-3 fatty acids (Omacor® fish oil, 1 gram)reduces the risk of developing cancer, heart disease, and stroke in people who do not have a prior history of these illnesses. The 5-year intervention phase (study pill-taking, median 5.3 years) has ended; post-intervention observational follow-up of study participants is ongoing.
+
+1. Study Type:	
+Interventional  (Clinical Trial)
+
+2. Actual Enrollment:
+25871 participants
+
+3. Allocation:
+Randomized
+
+4. Intervention Model:
+Factorial Assignment
+
+5. Masking:
+Triple (Participant, Investigator, Outcomes Assessor)
+
+6. Primary Purpose:
+Prevention
+
+7. Official Title:
+Vitamin D and Omega-3 Trial (VITAL)
+
+8. Study Start Date:
+July 2010
+
+9. Intervention/treatment : 
+
+Dietary Supplement: vitamin D3
+
+Drug: omega-3 fatty acids (fish oil)
+
+Dietary Supplement: Vitamin D3 placebo
+
+Dietary Supplement: Fish oil placebo
+
+10. Phase:
+Phase 3
+
+
+
+# Exploratory analysis
+
+**1. prepare the packages**
+```{r}
+
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(tidyr)
+library(patchwork)
+
+
+require(sas7bdat)
+
+```
+
+**2. import the data**
+```{r}
+# read the raw data
+rawdata <- read.sas7bdat("vital_data_2019.sas7bdat")
+
+
+# select needed variables
+data <- rawdata[c("sex", "vitdactive", "fishoilactive", "mideath", "stdeath", "cvdeath", "chdeath")] %>% 
+  tibble::as_tibble()
+```
+
+**3. clean the data**
+```{r}
+# group the data into four treatments
+groupdata <- aggregate(cbind(mideath, stdeath, cvdeath, chdeath) ~ vitdactive + fishoilactive, data, sum) 
+
+
+# transform wider data to longer data
+data_longer <- groupdata %>% 
+  pivot_longer(contains("death"),
+               names_to = "death",
+               values_to = "count")
+
+
+# count the death from different treatments
+mydata <- data_longer %>% 
+  mutate(group=paste(vitdactive, fishoilactive, sep = "_"))
+
+
+# reorder the columns of dataset
+mydata <- mydata %>% select(group, death, count)
+
+```
+
+**4. visulize the data**
+```{r}
+# using ggplot to plot stacked bar graph
+p1 <- ggplot(mydata, aes(group,count,fill=death))+
+  geom_col()+
+  scale_fill_brewer(palette = "Set2")+
+  scale_x_discrete(labels = c("PLACEBO VD + PLACEBO O3",
+                              "PLACEBO VD + ACTIVE O3",
+                              "ACTIVE VD + PLACEBO O3",
+                              "ACTIVE VD + ACTIVE O3")) +
+  theme(axis.text.x = element_text(size=rel(0.8), angle = 45, hjust = 1, vjust = 1))+
+  ylim(0, 150)+
+  ggtitle("Stacked Bar Graph")
+
+
+# using ggplot to plot clustered bar graph
+p2 <- ggplot(mydata, aes(group,count,fill=death))+
+  geom_bar(stat="identity",position="dodge")+
+  scale_fill_brewer(palette = "Accent")+
+  scale_x_discrete(labels = c("PLACEBO VD + PLACEBO O3",
+                              "PLACEBO VD + ACTIVE O3",
+                              "ACTIVE VD + PLACEBO O3",
+                              "ACTIVE VD + ACTIVE O3")) +
+  theme(axis.text.x = element_text(size=rel(0.8),angle = 45, hjust = 1, vjust = 1))+
+  ylim(0, 100)+
+  ggtitle("Clusted Bar Graph")
+
+
+# put two pictures together
+p1/p2
+```
+
+
+
+# Create a hypothesis and plan for testing
+Hypothesis:vitamin D3 and omega-3 fatty acids would significantly affect the death count of people.
+
+*There is no difference between groups*
+
+
+# Test the hypothesis
+
+```{r}
+# Homogeneity of variance test-Bartlett test
+bartlett.test(count ~ vitdactive, data=data_longer)
+bartlett.test(count ~ fishoilactive, data=data_longer)
+
+
+# Two-way ANOVA hypotheses
+summary(aov(count ~ vitdactive * fishoilactive, data=data_longer))
+
+
+# plot the results
+library(HH)
+
+interaction2wt(count ~ vitdactive * fishoilactive, data=data_longer)
+```
+
+
+
