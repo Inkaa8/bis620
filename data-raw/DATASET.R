@@ -10,3 +10,9 @@ pm_ae <- read_sas("NCT00339183/ae.sas7bdat") %>%
   )
 
 usethis::use_data(pm_ae, overwrite = TRUE)
+
+
+
+rawdata <- read_sas("data-raw/vital_data_2019.sas7bdat")
+
+usethis::use_data(rawdata, overwrite = TRUE)

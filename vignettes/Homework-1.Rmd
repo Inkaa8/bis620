@@ -61,16 +61,14 @@ library(tidyverse)
 library(ggplot2)
 library(tidyr)
 library(patchwork)
-
-
-require(sas7bdat)
+library(haven)
 
 ```
 
 **2. import the data**
 ```{r}
 # read the raw data
-rawdata <- read.sas7bdat("vital_data_2019.sas7bdat")
+data(rawdata)
 
 
 # select needed variables
