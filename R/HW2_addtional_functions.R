@@ -18,7 +18,7 @@ wt_mean <- function(x, w) {
 #' @export
 num_na <- function(x) {
   if(sum(is.na(x)) == 0){
-    print("There is no missing value.")
+    return("There is no missing value.")
   } else{
     paste("The number of missing values is", sum(is.na(x)), ".", sep = " ")
   }
