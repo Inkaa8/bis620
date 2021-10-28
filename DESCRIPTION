@@ -3,9 +3,8 @@ Type: Package
 Title: Package for class bis620 use
 Version: 0.1.0
 Author: Yanjun Wu
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Maintainer: Yanjun Wu <y.wu@yale.edu>
+Description: This backage is for private use. Maybe unstable.
 License: LGPL (>= 2.1)
 Encoding: UTF-8
 LazyData: true
@@ -13,13 +12,19 @@ RoxygenNote: 7.1.2
 Imports:
     dplyr,
     ggplot2,
-    haven
+    haven,
+    HH,
+    patchwork,
+    survival,
+    tidyr,
+    tidyverse
 Suggests:
-  DT,
-  rmarkdown,
-  knitr,
-  testthat (>= 3.0.0)
+    DT,
+    rmarkdown,
+    knitr,
+    testthat (>= 3.0.0),
+    tibble
 Config/testthat/edition: 3
 Depends: 
-  R (>= 3.5.0)
+    R (>= 3.5.0)
 VignetteBuilder: knitr

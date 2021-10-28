@@ -1,9 +1,13 @@
 ---
 title: "Homework-1"
-output:
-  pdf_document: default
-  html_document: default
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Homework-1}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{tibble}
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -65,6 +69,8 @@ library(tidyr)
 library(patchwork)
 library(haven)
 library(bis620)
+library(HH)
+library(survival)
 
 ```
 
@@ -96,9 +102,6 @@ data_longer <- groupdata %>%
 mydata <- data_longer %>% 
   mutate(group=paste(vitdactive, fishoilactive, sep = "_"))
 
-
-# reorder the columns of dataset
-mydata <- mydata %>% select(group, death, count)
 
 ```
 
@@ -155,7 +158,6 @@ summary(aov(count ~ vitdactive * fishoilactive, data=data_longer))
 
 
 # plot the results
-library(HH)
 
 interaction2wt(count ~ vitdactive * fishoilactive, data=data_longer)
 ```
