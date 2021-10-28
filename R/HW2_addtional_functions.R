@@ -1,6 +1,6 @@
 #' @title Calculate weighted mean
 #'
-#' @description This function
+#' @description This function tells weighted mean values.
 #' @param x one parameter.
 #' @param w Weighted parameter.
 #' @return weighted mean values.

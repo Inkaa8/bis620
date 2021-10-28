@@ -15,5 +15,5 @@ wt_mean(x, w)
 weighted mean values.
 }
 \description{
-This function
+This function tells weighted mean values.
 }
