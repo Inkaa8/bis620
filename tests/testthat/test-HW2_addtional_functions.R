@@ -13,3 +13,4 @@ test_that("The num_na function tells no missing value",{
 test_that("The num_na function tells missing value number",{
   expect_equal(num_na(c(1, 2, NA, NA)), "The number of missing values is 2 .")
 })
+

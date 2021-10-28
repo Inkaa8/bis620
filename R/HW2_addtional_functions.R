@@ -23,3 +23,4 @@ num_na <- function(x) {
     paste("The number of missing values is", sum(is.na(x)), ".", sep = " ")
   }
 }
+
