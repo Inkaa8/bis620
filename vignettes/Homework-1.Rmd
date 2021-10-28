@@ -1,6 +1,8 @@
 ---
 title: "Homework-1"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -62,6 +64,7 @@ library(ggplot2)
 library(tidyr)
 library(patchwork)
 library(haven)
+library(bis620)
 
 ```
 
