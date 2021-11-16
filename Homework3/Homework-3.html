@@ -694,15 +694,59 @@ x1 %*% x4
 
 # Test the class of results
 library(testthat)
-expect_s4_class(x1+ x1, &quot;dgCMatrix&quot;)
-expect_s4_class(t(x1) %*% x1, &quot;dgCMatrix&quot;)
-expect_s4_class(x1 %*% x1, &quot;dgCMatrix&quot;)
-expect_s4_class(x1 + t(x2), &quot;dgCMatrix&quot;)
-expect_s4_class(x1 %*% x2, &quot;dgCMatrix&quot;)
-expect_s4_class(x3 + x1, &quot;dgCMatrix&quot;)
-expect_s4_class(x3 %*% x3, &quot;dgeMatrix&quot;)
-expect_s4_class(x1 + x4, &quot;dgCMatrix&quot;)
-expect_s4_class(x1 %*% x4, &quot;dtCMatrix&quot;)</code></pre>
+test_that(
+  &quot;The new class matrix set up successfully&quot;,{
+    expect_s4_class(x1+ x1, &quot;dgCMatrix&quot;)
+  }
+)
+
+test_that(
+  &quot;The new class matrix set up successfully&quot;,{
+    expect_s4_class(t(x1) %*% x1, &quot;dgCMatrix&quot;)
+  }
+)
+
+test_that(
+  &quot;The new class matrix set up successfully&quot;,{
+    expect_s4_class(x1 %*% x1, &quot;dgCMatrix&quot;)
+  }
+)
+
+test_that(
+  &quot;The new class matrix set up successfully&quot;,{
+    expect_s4_class(x1 + t(x2), &quot;dgCMatrix&quot;)
+  }
+)
+
+test_that(
+  &quot;The new class matrix set up successfully&quot;,{
+    expect_s4_class(x1 %*% x2, &quot;dgCMatrix&quot;)
+  }
+)
+
+test_that(
+  &quot;The new class matrix set up successfully&quot;,{
+    expect_s4_class(x3 + x1, &quot;dgCMatrix&quot;)
+  }
+)
+
+test_that(
+  &quot;The new class matrix set up successfully&quot;,{
+    expect_s4_class(x3 + x3, &quot;dgeMatrix&quot;)
+  }
+)
+
+test_that(
+  &quot;The new class matrix set up successfully&quot;,{
+    expect_s4_class(x1 + x4, &quot;dgCMatrix&quot;)
+  }
+)
+
+test_that(
+  &quot;The new class matrix set up successfully&quot;,{
+    expect_s4_class(x1 %*% x4, &quot;dtCMatrix&quot;)
+  }
+)</code></pre>
 <pre><code>## 6 x 6 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                      
 ## [1,]  .  8.6 . . .  .
@@ -774,7 +818,16 @@ expect_s4_class(x1 %*% x4, &quot;dtCMatrix&quot;)</code></pre>
 ## [3,]  .  .  . . . .
 ## [4,]  .  .  . . . .
 ## [5,] 70  .  . . . .
-## [6,]  . 43 56 . . .</code></pre>
+## [6,]  . 43 56 . . .
+## Test passed 😀
+## Test passed 🌈
+## Test passed 🎊
+## Test passed 😀
+## Test passed 🥳
+## Test passed 🥇
+## Test passed 🎊
+## Test passed 😸
+## Test passed 🎉</code></pre>
 </div>
 </div>
 <div id="final-homework-proposal" class="section level1">

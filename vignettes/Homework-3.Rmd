@@ -557,15 +557,60 @@ x1 %*% x4
 
 # Test the class of results
 library(testthat)
-expect_s4_class(x1+ x1, "dgCMatrix")
-expect_s4_class(t(x1) %*% x1, "dgCMatrix")
-expect_s4_class(x1 %*% x1, "dgCMatrix")
-expect_s4_class(x1 + t(x2), "dgCMatrix")
-expect_s4_class(x1 %*% x2, "dgCMatrix")
-expect_s4_class(x3 + x1, "dgCMatrix")
-expect_s4_class(x3 %*% x3, "dgeMatrix")
-expect_s4_class(x1 + x4, "dgCMatrix")
-expect_s4_class(x1 %*% x4, "dtCMatrix")
+test_that(
+  "The new class matrix set up successfully",{
+    expect_s4_class(x1+ x1, "dgCMatrix")
+  }
+)
+
+test_that(
+  "The new class matrix set up successfully",{
+    expect_s4_class(t(x1) %*% x1, "dgCMatrix")
+  }
+)
+
+test_that(
+  "The new class matrix set up successfully",{
+    expect_s4_class(x1 %*% x1, "dgCMatrix")
+  }
+)
+
+test_that(
+  "The new class matrix set up successfully",{
+    expect_s4_class(x1 + t(x2), "dgCMatrix")
+  }
+)
+
+test_that(
+  "The new class matrix set up successfully",{
+    expect_s4_class(x1 %*% x2, "dgCMatrix")
+  }
+)
+
+test_that(
+  "The new class matrix set up successfully",{
+    expect_s4_class(x3 + x1, "dgCMatrix")
+  }
+)
+
+test_that(
+  "The new class matrix set up successfully",{
+    expect_s4_class(x3 + x3, "dgeMatrix")
+  }
+)
+
+test_that(
+  "The new class matrix set up successfully",{
+    expect_s4_class(x1 + x4, "dgCMatrix")
+  }
+)
+
+test_that(
+  "The new class matrix set up successfully",{
+    expect_s4_class(x1 %*% x4, "dtCMatrix")
+  }
+)
+
 
 
 ```
