@@ -23,7 +23,8 @@ Suggests:
     rmarkdown,
     knitr,
     testthat (>= 3.0.0),
-    tibble
+    tibble,
+    Matrix
 Config/testthat/edition: 3
 Depends: 
     R (>= 3.5.0)
