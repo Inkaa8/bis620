@@ -441,13 +441,7 @@ setMethod(
     b <- sparseMatrix(i = y@i, j = y@j, x = y@x,
                       dims = c(max(y@i), max(y@j)))
 
-    cc <- matrix(NA, nrow = nrow(x), ncol = max(y@j))
-    for (m in 1:nrow(x)){
-      for (n in 1:ncol(b)){
-        cc[m,n] <-  sum(x[m,] * b[,n])
-      }
-    }
-    cc <- Matrix(cc)
+    x %*% b
   }
 )
 
@@ -513,7 +507,7 @@ setMethod(
   f = "t",
   signature = c(x = "bis620_sparse_matrix"),
   definition = function(x){
-    x <- sparseMatrix(i = x@j, j = x@i, x = x@x)
+    sparseMatrix(i = x@j, j = x@i, x = x@x)
   }
 )
 ```
@@ -556,6 +550,21 @@ x3 + x1
 x3 %*% x3
 x1 + x4
 x1 %*% x4
+
+
+# Test the class of results
+library(testthat)
+expect_s4_class(x1+ x1, "dgCMatrix")
+expect_s4_class(t(x1) %*% x1, "dgCMatrix")
+expect_s4_class(x1 %*% x1, "dgCMatrix")
+expect_s4_class(x1 + t(x2), "dgCMatrix")
+expect_s4_class(x1 %*% x2, "dgCMatrix")
+expect_s4_class(x3 + x1, "dgCMatrix")
+expect_s4_class(x3 %*% x3, "dgeMatrix")
+expect_s4_class(x1 + x4, "dgCMatrix")
+expect_s4_class(x1 %*% x4, "dtCMatrix")
+
+
 ```
 
 # Final homework proposal

@@ -587,13 +587,7 @@ setMethod(
     b &lt;- sparseMatrix(i = y@i, j = y@j, x = y@x,
                       dims = c(max(y@i), max(y@j)))
 
-    cc &lt;- matrix(NA, nrow = nrow(x), ncol = max(y@j))
-    for (m in 1:nrow(x)){
-      for (n in 1:ncol(b)){
-        cc[m,n] &lt;-  sum(x[m,] * b[,n])
-      }
-    }
-    cc &lt;- Matrix(cc)
+    x %*% b
   }
 )
 
@@ -655,7 +649,7 @@ setMethod(
   f = &quot;t&quot;,
   signature = c(x = &quot;bis620_sparse_matrix&quot;),
   definition = function(x){
-    x &lt;- sparseMatrix(i = x@j, j = x@i, x = x@x)
+    sparseMatrix(i = x@j, j = x@i, x = x@x)
   }
 )</code></pre>
 </div>
@@ -695,7 +689,20 @@ x1 %*% x2
 x3 + x1
 x3 %*% x3
 x1 + x4
-x1 %*% x4</code></pre>
+x1 %*% x4
+
+
+# Test the class of results
+library(testthat)
+expect_s4_class(x1+ x1, &quot;dgCMatrix&quot;)
+expect_s4_class(t(x1) %*% x1, &quot;dgCMatrix&quot;)
+expect_s4_class(x1 %*% x1, &quot;dgCMatrix&quot;)
+expect_s4_class(x1 + t(x2), &quot;dgCMatrix&quot;)
+expect_s4_class(x1 %*% x2, &quot;dgCMatrix&quot;)
+expect_s4_class(x3 + x1, &quot;dgCMatrix&quot;)
+expect_s4_class(x3 %*% x3, &quot;dgeMatrix&quot;)
+expect_s4_class(x1 + x4, &quot;dgCMatrix&quot;)
+expect_s4_class(x1 %*% x4, &quot;dtCMatrix&quot;)</code></pre>
 <pre><code>## 6 x 6 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                      
 ## [1,]  .  8.6 . . .  .
@@ -704,14 +711,14 @@ x1 %*% x4</code></pre>
 ## [4,]  .  .   . . .  .
 ## [5,]  .  .   . . . 14
 ## [6,] 20  .   . . .  .
-## 6 x 6 diagonal matrix of class &quot;ddiMatrix&quot;
-##      [,1] [,2]  [,3] [,4] [,5] [,6]
-## [1,]  100     .    .    .    .    .
-## [2,]    . 49.85    .    .    .    .
-## [3,]    .     .    0    .    .    .
-## [4,]    .     .    .    0    .    .
-## [5,]    .     .    .    .    0    .
-## [6,]    .     .    .    .    .   49
+## 6 x 6 sparse Matrix of class &quot;dgCMatrix&quot;
+##                        
+## [1,] 100  .    . . .  .
+## [2,]   . 49.85 . . .  .
+## [3,]   .  .    . . .  .
+## [4,]   .  .    . . .  .
+## [5,]   .  .    . . .  .
+## [6,]   .  .    . . . 49
 ## 6 x 6 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                      
 ## [1,]  . 24.08 . . . .
