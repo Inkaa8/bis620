@@ -1,6 +1,6 @@
-library(reticulate)
-use_condaenv("bis620", required = TRUE)
-np <- import("numpy", convert = FALSE)
+#library(reticulate)
+#use_condaenv("bis620", required = TRUE)
+#np <- import("numpy", convert = FALSE)
 
 x1 <- new("bis620_numpy_matrix",
           pymatrix = np$matrix(list(c(0, 4.3, 0, 0, 0, 0),

@@ -15,8 +15,8 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 library(bis620)
-#library(reticulate)
-#use_condaenv("bis620", required = TRUE)
+library(reticulate)
+use_condaenv("bis620", required = TRUE)
 ```
 
 
