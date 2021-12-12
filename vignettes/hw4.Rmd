@@ -1,0 +1,444 @@
+---
+title: "hw4"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{hw4}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+Team member: Yanjun Wu<br>
+Yale ID: yw744
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(bis620)
+library(reticulate)
+use_condaenv("bis620", required = TRUE)
+```
+
+
+
+```{r create new class bis620_numpy_matrix}
+np <- import("numpy", convert = FALSE)
+setOldClass("numpy.matrix")
+setClass(Class = "bis620_numpy_matrix",
+         slots = c(pymatrix = "numpy.matrix")
+         )
+
+
+# create a new bis620_numpy_matrix object x1
+
+x1 <- new("bis620_numpy_matrix", 
+          pymatrix = np$matrix(list(c(0, 4.3, 0, 0, 0, 0),
+                                    c(0, 5.6, 0, 0, 0, 0),
+                                    c(0, 0, 0, 0, 0, 0),
+                                    c(0, 0, 0, 0, 0, 0),
+                                    c(0, 0, 0, 0, 0, 7),
+                                    c(10, 0, 0, 0, 0, 0))
+                              )
+)
+
+```
+
+
+```{r set operator + for class bis620_numpy_matrix}
+
+setMethod(
+  f = "+",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "bis620_numpy_matrix"),
+  definition = function(e1, e2){
+    
+    a <- py_to_r(e1@pymatrix)
+    b <- py_to_r(e1@pymatrix)
+
+    if (ncol(a) != ncol(b) || nrow(a) != nrow(b)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(a + b)
+    
+  }
+)
+
+
+setMethod(
+  f = "+",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "matrix"),
+  definition = function(e1, e2){
+    a <- py_to_r(e1@pymatrix)
+    
+    if (ncol(a) != ncol(e2) || nrow(a) != nrow(e2)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(a + e2)
+    
+  }
+)
+
+
+setMethod(
+  f = "+",
+  signature = c(e1 = "Matrix", e2 = "bis620_numpy_matrix"),
+  definition = function(e1, e2){
+    b <- py_to_r(e2@pymatrix)
+    
+    if (ncol(e1) != ncol(b) || nrow(e1) != nrow(b)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(e1 + b)
+    
+  }
+)
+
+
+setMethod(
+  f = "+",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "Matrix"),
+  definition = function(e1, e2){
+    a <- py_to_r(e1@pymatrix)
+    
+    if (ncol(a) != ncol(e2) || nrow(a) != nrow(e2)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(a + e2)
+    
+  }
+)
+
+```
+
+
+```{r set transpose function for calss bis620_numpy_matrix}
+setMethod(
+  f = "t",
+  signature = c(x = "bis620_numpy_matrix"),
+  definition = function(x){
+    return(t(py_to_r(x@pymatrix)))
+  }
+)
+```
+
+
+```{r set operator %*% for calss bis620_numpy_matrix}
+
+setMethod(
+  f = "%*%",
+  signature = c(x = "bis620_numpy_matrix", y = "bis620_numpy_matrix"),
+  definition = function(x, y){
+    
+    a <- py_to_r(x@pymatrix)
+    b <- py_to_r(y@pymatrix)
+
+    if (ncol(a) != nrow(b) || nrow(a) != ncol(b)){
+      stop("The dimensions of two matrices don't match.")
+    }
+    
+    return(a %*% b)
+    
+  }
+)
+
+
+setMethod(
+  f = "%*%",
+  signature = c(x = "matrix", y = "bis620_numpy_matrix"),
+  definition = function(x, y){
+    b <- py_to_r(y@pymatrix)
+    
+    if (ncol(x) != nrow(b) || nrow(x) != ncol(b)){
+      stop("The dimensions of two matrices don't match.")
+    }
+    
+    return(x %*% b)
+    
+  }
+)
+
+
+setMethod(
+  f = "%*%",
+  signature = c(x = "bis620_numpy_matrix", y = "matrix"),
+  definition = function(x, y){
+    a <- py_to_r(x@pymatrix)
+    
+    if (ncol(a) != nrow(y) || nrow(a) != ncol(y)){
+      stop("The dimensions of two matrices don't match.")
+    }
+    
+    return(a %*% y)
+    
+  }
+)
+
+
+setMethod(
+  f = "%*%",
+  signature = c(x = "bis620_numpy_matrix", y = "Matrix"),
+  definition = function(x, y){
+    a <- py_to_r(x@pymatrix)
+    
+    if (ncol(a) != nrow(y) || nrow(a) != ncol(y)){
+      stop("The dimensions of two matrices don't match.")
+    }
+    
+    return(a %*% y)
+    
+  }
+)
+
+```
+
+
+```{r set operator - for class bis620_numpy_matrix}
+
+setMethod(
+  f = "-",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "bis620_numpy_matrix"),
+  definition = function(e1, e2){
+    
+    a <- py_to_r(e1@pymatrix)
+    b <- py_to_r(e2@pymatrix)
+
+    if (ncol(a) != ncol(b) || nrow(a) != nrow(b)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(a - b)
+    
+  }
+)
+
+
+setMethod(
+  f = "-",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "matrix"),
+  definition = function(e1, e2){
+    a <- py_to_r(e1@pymatrix)
+    
+    if (ncol(a) != ncol(e2) || nrow(a) != nrow(e2)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(a - e2)
+    
+  }
+)
+
+
+setMethod(
+  f = "-",
+  signature = c(e1 = "Matrix", e2 = "bis620_numpy_matrix"),
+  definition = function(e1, e2){
+    b <- py_to_r(e2@pymatrix)
+    
+    if (ncol(e1) != ncol(b) || nrow(e1) != nrow(b)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(e1 - b)
+    
+  }
+)
+
+
+setMethod(
+  f = "-",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "Matrix"),
+  definition = function(e1, e2){
+    a <- py_to_r(e1@pymatrix)
+    
+    if (ncol(a) != ncol(e2) || nrow(a) != nrow(e2)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(a - e2)
+    
+  }
+)
+
+```
+
+
+```{r set operator * for class bis620_numpy_matrix}
+
+setMethod(
+  f = "*",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "bis620_numpy_matrix"),
+  definition = function(e1, e2){
+    
+    a <- py_to_r(e1@pymatrix)
+    b <- py_to_r(e2@pymatrix)
+
+    if (ncol(a) != ncol(b) || nrow(a) != nrow(b)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(a * b)
+    
+  }
+)
+
+
+setMethod(
+  f = "*",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "matrix"),
+  definition = function(e1, e2){
+    a <- py_to_r(e1@pymatrix)
+    
+    if (ncol(a) != ncol(e2) || nrow(a) != nrow(e2)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(a * e2)
+    
+  }
+)
+
+
+setMethod(
+  f = "*",
+  signature = c(e1 = "Matrix", e2 = "bis620_numpy_matrix"),
+  definition = function(e1, e2){
+    b <- py_to_r(e2@pymatrix)
+    
+    if (ncol(e1) != ncol(b) || nrow(e1) != nrow(b)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(e1 * b)
+    
+  }
+)
+
+
+setMethod(
+  f = "*",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "Matrix"),
+  definition = function(e1, e2){
+    a <- py_to_r(e1@pymatrix)
+    
+    if (ncol(a) != ncol(e2) || nrow(a) != nrow(e2)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    return(a * e2)
+    
+  }
+)
+
+```
+
+
+```{r set operator / for class bis620_numpy_matrix}
+
+setMethod(
+  f = "/",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "bis620_numpy_matrix"),
+  definition = function(e1, e2){
+    
+    a <- py_to_r(e1@pymatrix)
+    b <- py_to_r(e2@pymatrix)
+
+    if (ncol(a) != ncol(b) || nrow(a) != nrow(b)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    c <- a / b
+    c[is.na(c)] <- 0
+    return(c)
+  
+  }
+)
+
+
+setMethod(
+  f = "/",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "matrix"),
+  definition = function(e1, e2){
+    a <- py_to_r(e1@pymatrix)
+    
+    if (ncol(a) != ncol(e2) || nrow(a) != nrow(e2)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    c <- a / e2
+    c[is.na(c)] <- 0
+    return(c)
+    
+  }
+)
+
+
+setMethod(
+  f = "/",
+  signature = c(e1 = "Matrix", e2 = "bis620_numpy_matrix"),
+  definition = function(e1, e2){
+    b <- py_to_r(e2@pymatrix)
+    
+    if (ncol(e1) != ncol(b) || nrow(e1) != nrow(b)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    c <- e1 / b
+    c[is.na(c)] <- 0
+    return(c)
+    
+  }
+)
+
+
+setMethod(
+  f = "/",
+  signature = c(e1 = "bis620_numpy_matrix", e2 = "Matrix"),
+  definition = function(e1, e2){
+    a <- py_to_r(e1@pymatrix)
+    
+    if (ncol(a) != ncol(e2) || nrow(a) != nrow(e2)){
+      stop("Two matrices have different dimentions.")
+    }
+    
+    c <- a / e2
+    c[is.na(c)] <- 0
+    return(c)
+    
+  }
+)
+
+```
+
+
+```{r test}
+
+set.seed(1)
+x2 <- matrix(rnorm(36), ncol = 6)
+
+library(Matrix)
+set.seed(1)
+x3 <- Matrix(rnorm(36), ncol = 6)
+
+x4 <- sparseMatrix(  
+  i = c(1, 1, 3, 6), 
+  j = c(2, 3, 5, 1), 
+  x = c(4.3, 5.6, 7, 10),
+  dims = c(6, 6)
+)
+
+# Test that the following are correct:
+x1 + x1
+t(x1) %*% x1
+x1 %*% x1
+x1 + t(x2)
+x1 %*% x2
+x3 + x1
+x3 %*% x3
+x1 + x4
+x1 %*% x4
+
+```
+
