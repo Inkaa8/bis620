@@ -443,3 +443,58 @@ x1 %*% x4
 
 ```
 
+
+
+
+# Final project proposal
+
+## Topic: Relationship Between Depression and Motor activity
+
+
+## Background
+
+Depression is a severe mental disorder with characteristic symptoms like sadness, the feeling of emptiness, anxiety and sleep disturbance, as well as general loss of initiative and interest in activities. The severity of a depression is determined by the quantity of symptoms, their seriousness and duration, as well as the consequences on social and occupational function. Depressions might be understood as a genetic vulnerability to the environment disturbing the internal biological state and potentially trigger mood episodes. The global lifetime prevalence of depression is roughly 15%, but the incidences of episodes with a severity level not meeting the requirements for a depressive diagnosis are far more prevalent. Actigraph recordings of motor activity are considered an objective method for observing depression.  
+
+Wearable sensors measuring different parts of people's activity are a common technology nowadays. Data created using these devices holds a lot of potential besides measuring the quantity of daily steps or calories burned, since continuous recordings of heart rate and activity levels usually are collected. These activity data relates to various mental health issues such as changes in mood, personality.
+
+
+## Data source
+
+The dataset was originally collected for [the study of motor activity in schizophrenia and major depression](https://bmcresnotes.biomedcentral.com/articles/10.1186/1756-0500-3-149). Motor activity was monitored with an actigraph watch worn at the right wrist (Actiwatch, Cambridge Neurotechnology Ltd, England, model AW4). The actigraph watch measures activity levels. The sampling frequency is 32Hz and movements over 0.05 g are recorded. A corresponding voltage is produced and is stored as an activity count in the memory unit of the actigraph watch. The number of counts is proportional to the intensity of the movement. Total activity counts were continuously recorded in one minute intervals.
+
+
+## Data details
+
+The dataset contains two groups: **control group** and **condition group**. For each patient we have actigraph data collected over time, including 
+
+* timestamp (one minute intervals)
+* date (date of measurement),
+* activity (activity measurement from the actigraph watch)
+
+In addition, we also have the **MADRS scores**, which contain the following columns: 
+
+* number (patient identifier)
+* days (number of days of measurements)
+* gender (1 or 2 for female or male)
+* age (age in age groups), afftype (1: bipolar II, 2: unipolar depressive, 3: bipolar I)
+* melanch (1: melancholia, 2: no melancholia)
+* inpatient (1: inpatient, 2: outpatient)
+* edu (education grouped in years)
+* marriage (1: married or cohabiting, 2: single)
+* work (1: working or studying, 2: unemployed/sick leave/pension)
+* madrs1 (MADRS score when measurement started)
+* madrs2 (MADRS when measurement stopped).
+
+
+## Objective
+
+Explore the relationship between the data collected. For example,
+
+* Motor activity pattern between depressed people and nondepressed people
+* Influences of different social-economical factors on depressed people
+* Find the factor which is the most correlated with de depression sympton
+* ...(To be explored)
+
+
+
+
